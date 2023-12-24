@@ -28,7 +28,7 @@ const ApartmentService = {
   },
 
   async updateApartment(apartment) {
-    const apartmentInstance = await Apartment.findByPk(apartment.ApartmentId);
+    const apartmentInstance = await Apartment.findByPk(apartment.id);
 
     if (apartmentInstance) {
       await apartmentInstance.update(apartment);

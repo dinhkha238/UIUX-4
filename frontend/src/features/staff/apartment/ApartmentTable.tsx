@@ -1,39 +1,54 @@
-import { DataGrid, viVN, GridToolbar, GridActionsCellItem } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  viVN,
+  GridToolbar,
+  GridActionsCellItem,
+  GridRowParams,
+  GridColDef,
+  GridValueGetterParams,
+} from '@mui/x-data-grid';
 
 import { useState, useEffect } from 'react';
 
-import axios from 'axios';
-
 import { Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { getApartments } from '../../../api/apartment/getApartments';
 
-function extractApartments(apartments) {
-  return apartments.map((apartment) => {
-    return {
-      id: apartment.id,
-      name: apartment.name,
-      buildingName: apartment.Building.name,
-      size: apartment.size,
-      status: apartment.UserInfos.length === 0 ? 'Chưa có cư dân' : 'Đã có cư dân',
-      buildingId: apartment.BuildingId,
-    };
-  });
-}
+import {
+  GetAparmentsResponse,
+  GetAparmentsResponseElement,
+} from '../../../api/apartment/getApartments';
+
+interface ApartmentRow extends GetAparmentsResponseElement {}
 
 export default function ApartmentTable() {
   const navigate = useNavigate();
 
-  const columns = [
+  const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', flex: 0.18 },
     { field: 'name', headerName: 'Tên căn hộ', flex: 0.18 },
-    { field: 'buildingName', headerName: 'Tên tòa nhà', flex: 0.18 },
+    {
+      field: 'buildingName',
+      headerName: 'Tên tòa nhà',
+      flex: 0.18,
+      valueGetter: (params: GridValueGetterParams<ApartmentRow>) => {
+        return params.row.Building.name;
+      },
+    },
     { field: 'size', headerName: 'Kích cỡ (m²)', flex: 0.18 },
-    { field: 'status', headerName: 'Trạng thái', flex: 0.18 },
+    {
+      field: 'status',
+      headerName: 'Trạng thái',
+      flex: 0.18,
+      valueGetter: (params: GridValueGetterParams<ApartmentRow>) => {
+        return params.row.UserInfos.length === 0 ? 'Trống' : 'Đã cho thuê';
+      },
+    },
     {
       field: 'actions',
       type: 'actions',
       cellClassName: 'actions',
-      getActions: (params) => [
+      getActions: (params: GridRowParams<ApartmentRow>) => [
         <GridActionsCellItem
           key='edit'
           icon={<Edit />}
@@ -46,12 +61,12 @@ export default function ApartmentTable() {
     },
   ];
 
-  const [apartments, setApartments] = useState([]);
+  const [apartments, setApartments] = useState<GetAparmentsResponse>([]);
 
   useEffect(() => {
     const fetchApartments = async () => {
-      const response = await axios.get('http://localhost:3000/apartments');
-      setApartments(extractApartments(response.data));
+      const response = await getApartments();
+      setApartments(response);
     };
 
     fetchApartments();

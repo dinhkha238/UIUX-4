@@ -7,8 +7,8 @@ import StaffNavbar from '../layouts/navbar/StaffNavbar';
 import StaffApartment from '../pages/staff/apartment/StaffApartment';
 import StaffApartmentAdd from '../pages/staff/apartment/StaffApartmentAdd';
 import StaffApartmentUpdate from '../pages/staff/apartment/StaffApartmentUpdate';
-import StaffResident from '../pages/staff/resident.jsx/StaffResident';
-import StaffResidentAdd from '../pages/staff/resident.jsx/StaffResidentAdd';
+import StaffResident from '../pages/staff/resident/StaffResident';
+import StaffResidentAdd from '../pages/staff/resident/StaffResidentAdd';
 
 const staffRoutes = [
   {

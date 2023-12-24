@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 const items = [
   { name: 'Trang chủ', route: 'dashboard' },
   { name: 'Căn hộ', route: 'apartment' },
-  { name: 'Quản lý dân cư', route: 'resident' },
+  { name: 'Quản lý cư dân', route: 'resident' },
   { name: 'Khiếu nại', route: 'complaint' },
   { name: 'Thông báo', route: 'notification' },
   { name: 'Phí', route: 'charge' },

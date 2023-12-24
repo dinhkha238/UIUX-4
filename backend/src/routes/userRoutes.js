@@ -32,11 +32,7 @@ router.post("/", async (req, res) => {
   try {
     const result = await UserService.createUser(req.body);
 
-    if (result.success) {
-      res.send(result);
-    } else {
-      res.status(400).send(result);
-    }
+    res.send(result.data);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -47,9 +43,9 @@ router.post("/login", async (req, res) => {
     const result = await UserService.login(req.body);
 
     if (result.success) {
-      res.send(result);
+      res.send(result.data);
     } else {
-      res.status(401).send(result);
+      res.status(401).send();
     }
   } catch (err) {
     res.status(500).send();

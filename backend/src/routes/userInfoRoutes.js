@@ -14,4 +14,14 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const result = await UserInfoService.createUserInfoNew(req.body);
+
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 export default router;

@@ -26,15 +26,20 @@ import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 
 import { useLocalStorage } from '@uidotdev/usehooks';
 
+import { LoginResponse } from '../../api/user/login';
+
 const Link = React.forwardRef(function Link(itemProps, ref) {
+  // @ts-ignore
   return <RouterLink ref={ref} {...itemProps} role={undefined} />;
 });
 
+// @ts-ignore
 function ListItemLink(props) {
   const { icon, primary, to, color } = props;
 
   return (
-    <ListItem button component={Link} to={to} sx={{ width: '100%' }}>
+    // @ts-ignore
+    <ListItem button={false} component={Link} to={to} sx={{ width: '100%' }}>
       {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
       <ListItemText
         primary={primary}
@@ -46,20 +51,25 @@ function ListItemLink(props) {
   );
 }
 
-const roles = {
+const roles: Record<string, string> = {
   staff: 'Nhân viên',
   resident: 'Cư dân',
   manager: 'Quản lý',
   police: 'Cảnh sát',
 };
 
-export default function Navbar({ base, items }) {
+type NavbarProps = {
+  base: string;
+  items: { name: string; route: string }[];
+};
+
+export default function Navbar({ base, items }: NavbarProps) {
   const location = useLocation();
   const theme = useTheme();
 
   const navigate = useNavigate();
 
-  const [user] = useLocalStorage('user', null);
+  const [user] = useLocalStorage<LoginResponse>('user', undefined);
 
   const [logoutOpen, setLogoutOpen] = React.useState(false);
 
@@ -81,7 +91,7 @@ export default function Navbar({ base, items }) {
           variant='standard'
           value={base}
         >
-          {user.roles.map((role) => (
+          {user.Roles.map((role) => (
             <MenuItem
               key={role.name}
               value={role.name}
@@ -107,7 +117,7 @@ export default function Navbar({ base, items }) {
             color={
               location.pathname.includes(base) && location.pathname.includes(item.route)
                 ? theme.palette.secondary.main
-                : theme.palette.text
+                : theme.palette.text.primary
             }
           />
         ))}

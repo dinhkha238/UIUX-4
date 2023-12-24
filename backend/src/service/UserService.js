@@ -49,17 +49,17 @@ export const UserService = {
       include: [Role],
     });
 
+    console.log(userInstance);
+
     if (!userInstance) {
       return {
         success: false,
-        message: "Tên đăng nhập hoặc mật khẩu không đúng",
       };
     }
 
     return {
       success: true,
-      message: "Đăng nhập thành công",
-      data: UserParser.modelToService(userInstance),
+      data: userInstance,
     };
   },
 
@@ -112,13 +112,9 @@ export const UserService = {
         include: [Role, UserInfo],
       });
 
-      const usersOutput = users.map((user) => {
-        return UserParser.modelToService(user);
-      });
-
-      return { success: true, data: usersOutput };
+      return { data: users };
     } catch (err) {
-      return { success: false };
+      console.log(err);
     }
   },
 };

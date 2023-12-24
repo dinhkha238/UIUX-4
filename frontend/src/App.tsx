@@ -9,16 +9,14 @@ import routes from './routes/routes';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { viVN } from '@mui/x-date-pickers/locales';
+
+import 'dayjs/locale/vi';
 
 const router = createBrowserRouter(routes);
 
 function App() {
   return (
-    <LocalizationProvider
-      dateAdapter={AdapterDayjs}
-      localeText={viVN.components.MuiLocalizationProvider.defaultProps.localeText}
-    >
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='vi'>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <RouterProvider router={router} />

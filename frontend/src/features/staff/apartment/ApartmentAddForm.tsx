@@ -4,40 +4,33 @@ import { useEffect, useState } from 'react';
 
 import { Snackbar, Alert } from '@mui/material';
 
-import axios from 'axios';
-
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
-function extractBuilding(buildings) {
-  return buildings.map((building) => {
-    return {
-      id: building.id,
-      name: building.name,
-    };
-  });
-}
+import { CreateApartmentRequest, createApartment } from '../../../api/apartment/createApartment';
+
+import {
+  GetBuildingsResponse,
+  GetBuildingsResponseElement,
+  getBuildings,
+} from '../../../api/building/getBuildings';
 
 const ApartmentAddForm = () => {
-  const formik = useFormik({
+  const formik = useFormik<CreateApartmentRequest>({
     initialValues: {
       name: '',
-      size: '',
-      building: 1,
+      size: 0,
+      BuildingId: 1,
     },
-    validationSchema: yup.object({
+    validationSchema: yup.object<CreateApartmentRequest>({
       name: yup.string().required('Tên căn hộ không được để trống'),
       size: yup.number().required('Kích cỡ căn hộ không được để trống'),
-      building: yup.string().required('Chung cư không được để trống'),
+      BuildingId: yup.string().required('Chung cư không được để trống'),
     }),
 
     onSubmit: async (values) => {
       try {
-        await axios.post('http://localhost:3000/apartments', {
-          name: values.name,
-          size: values.size,
-          BuildingId: values.building,
-        });
+        await createApartment(values);
 
         formik.resetForm();
 
@@ -48,12 +41,12 @@ const ApartmentAddForm = () => {
     },
   });
 
-  const [buildings, setBuildings] = useState([]);
+  const [buildings, setBuildings] = useState<GetBuildingsResponse>([]);
 
   useEffect(() => {
     const fetchBuildings = async () => {
-      const response = await axios.get('http://localhost:3000/buildings');
-      setBuildings(extractBuilding(response.data));
+      const response = await getBuildings();
+      setBuildings(response);
     };
 
     fetchBuildings();
@@ -61,23 +54,20 @@ const ApartmentAddForm = () => {
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  function handleSnackbarClose(event, reason) {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setSnackbarOpen(false);
-  }
-
   return (
     <form onSubmit={formik.handleSubmit}>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={snackbarOpen}
         autoHideDuration={3000}
-        onClose={handleSnackbarClose}
+        onClose={(_event, reason) => {
+          if (reason === 'clickaway') {
+            return;
+          }
+          setSnackbarOpen(false);
+        }}
       >
-        <Alert onClose={handleSnackbarClose} severity='success' sx={{ width: '100%' }}>
+        <Alert severity='success' sx={{ width: '100%' }}>
           Thêm căn hộ thành công
         </Alert>
       </Snackbar>
@@ -112,9 +102,11 @@ const ApartmentAddForm = () => {
               labelId='building-select-label'
               id='building-select'
               label='Chung cư'
-              value={formik.values.building}
-              onChange={formik.handleChange('building')}
-              error={formik.touched.building && Boolean(formik.errors.building)}
+              value={formik.values.BuildingId}
+              onChange={(value) => {
+                formik.setFieldValue('BuildingId', value.target.value);
+              }}
+              error={formik.touched.BuildingId && Boolean(formik.errors.BuildingId)}
             >
               {buildings.map((building) => {
                 return (

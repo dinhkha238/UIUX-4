@@ -1,6 +1,12 @@
 import { Box, Divider } from '@mui/material';
+import { ReactNode } from 'react';
 
-export default function LayoutProvider({ navbar, children }) {
+interface LayoutProviderProps {
+  navbar: ReactNode;
+  children: ReactNode;
+}
+
+export default function LayoutProvider({ navbar, children }: LayoutProviderProps) {
   return (
     <Box display='flex' height='100vh'>
       <Box width='20%'>{navbar}</Box>

@@ -15,7 +15,7 @@ export default async function seedBuilding() {
       name: "Vina Sky Palace",
       Apartments: apartments,
     },
-    { name: "Lam VIP Royal Cloud", Apartments: apartments },
+    { name: "VIP Royal Cloud", Apartments: apartments },
   ];
 
   for (let building of buildings) {
