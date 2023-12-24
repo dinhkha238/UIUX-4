@@ -1,6 +1,6 @@
-# UI UX GROUP 4
+# UI UX NHÓM 4
 
-# Mẫu thử độ tin cậy cao
+# Mẫu thử giao diện và tương tác độ tin cậy cao
 
 # VINAHOUSE
 
