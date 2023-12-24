@@ -3,7 +3,7 @@ import { UserService } from "../../service/UserService.js";
 export default async function seedUser() {
   const users = [
     {
-      username: "tvkain",
+      username: "khanhtv",
       password: "1",
       roles: [
         { name: "staff", primary: true },
