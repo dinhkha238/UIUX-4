@@ -6,7 +6,6 @@ interface UserInfo {
   birthday: string;
   email: string;
   phone: string;
-  country: string;
   city: string;
   district: string;
   subdistrict: string;

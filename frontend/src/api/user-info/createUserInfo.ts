@@ -3,13 +3,18 @@ import { UserInfo } from './types';
 import { url } from '../../config/constants';
 
 import axios from 'axios';
+import { User } from '../user/types';
 
-interface CreateUserInfoRequest extends Omit<UserInfo, 'id'> {
+interface CreateUserInfoRequest extends Omit<Omit<UserInfo, 'id'>, 'UserId'> {
   account: boolean;
 }
 
-async function createUserInfo(data: CreateUserInfoRequest): Promise<UserInfo> {
-  const result = await axios.post<UserInfo>(`${url}/user-info`, data);
+interface CreateUserInfoResponse extends UserInfo {
+  User?: User;
+}
+
+async function createUserInfo(data: CreateUserInfoRequest): Promise<CreateUserInfoResponse> {
+  const result = await axios.post<CreateUserInfoResponse>(`${url}/user-infos`, data);
 
   return result.data;
 }

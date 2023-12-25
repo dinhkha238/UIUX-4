@@ -1,19 +1,36 @@
-import { DataGrid, viVN, GridToolbar, GridActionsCellItem } from '@mui/x-data-grid';
+import { DataGrid, viVN, GridToolbar, GridActionsCellItem, GridColDef } from '@mui/x-data-grid';
 
 import { useState, useEffect } from 'react';
 
-import axios from 'axios';
+import {
+  getUserInfos,
+  GetUserInfoResponse,
+  GetUserInfoResponseElement,
+} from '../../../api/user-info/getUserInfos';
 
 import { Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { UserInfo } from '../../../api/user-info/types';
 
 export default function ResidentTable() {
   const navigate = useNavigate();
 
-  const columns = [
+  const columns: GridColDef<GetUserInfoResponseElement>[] = [
     { field: 'id', headerName: 'ID', flex: 0.1 },
     { field: 'lastName', headerName: 'Họ', flex: 0.1 },
     { field: 'firstName', headerName: 'Tên', flex: 0.1 },
+    {
+      field: 'building',
+      headerName: 'Chung cư',
+      flex: 0.1,
+      valueGetter: (params) => params.row.Apartment.Building.name,
+    },
+    {
+      field: 'apartment',
+      headerName: 'Căn hộ',
+      flex: 0.1,
+      valueGetter: (params) => params.row.Apartment.name,
+    },
     { field: 'gender', headerName: 'Giới tính', flex: 0.1 },
     {
       field: 'birthday',
@@ -22,11 +39,13 @@ export default function ResidentTable() {
       type: 'date',
       valueGetter: (params) => new Date(params.row.birthday),
     },
-    { field: 'phone', headerName: 'Số điện thoại', flex: 0.1 },
-    { field: 'country', headerName: 'Đất nước', flex: 0.1 },
     { field: 'city', headerName: 'Thành phố', flex: 0.1 },
+    { field: 'district', headerName: 'Quận', flex: 0.1 },
+    { field: 'subdistrict', headerName: 'Phường', flex: 0.1 },
+    { field: 'phone', headerName: 'Số điện thoại', flex: 0.1 },
+    { field: 'email', headerName: 'Email', flex: 0.1 },
     {
-      field: 'actions',
+      field: 'Thao tác',
       type: 'actions',
       cellClassName: 'actions',
       getActions: (params) => [
@@ -42,12 +61,15 @@ export default function ResidentTable() {
     },
   ];
 
-  const [userInfos, setUserInfos] = useState([]);
+  const [userInfos, setUserInfos] = useState<GetUserInfoResponse>([]);
 
   useEffect(() => {
     const fetchUserInfos = async () => {
-      const response = await axios.get('http://localhost:3000/user-infos');
-      setUserInfos(response.data);
+      const response = await getUserInfos();
+
+      console.log(response);
+
+      setUserInfos(response);
     };
 
     fetchUserInfos();

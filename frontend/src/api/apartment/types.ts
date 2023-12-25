@@ -1,3 +1,5 @@
+import { Building } from '../building/types';
+
 interface Apartment {
   id: number;
   name: string;
@@ -5,4 +7,8 @@ interface Apartment {
   BuildingId: number;
 }
 
-export type { Apartment };
+interface ApartmentFull extends Apartment {
+  Building: Building;
+}
+
+export type { Apartment, ApartmentFull };
