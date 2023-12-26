@@ -53,8 +53,8 @@ export default function RequestTable() {
 
   const columns: GridColDef<RequestFull>[] = [
     { field: 'id', headerName: 'ID', flex: 0.05 },
-    { field: 'title', headerName: 'Tiêu đề', flex: 0.125 },
-    { field: 'description', headerName: 'Nội dung', flex: 0.125 },
+    { field: 'title', headerName: 'Tiêu đề', flex: 0.15 },
+    { field: 'description', headerName: 'Nội dung', flex: 0.15 },
     {
       field: 'createdAt',
       headerName: 'Thời gian tạo',
@@ -65,14 +65,14 @@ export default function RequestTable() {
     {
       field: 'status',
       headerName: 'Trạng thái',
-      flex: 0.125,
+      flex: 0.1,
       valueFormatter: (params) => params.value,
       cellClassName: (params) => RequestStatusMap[params.value as keyof typeof RequestStatusMap],
     },
     {
       field: 'processBy',
       headerName: 'Người xử lý',
-      flex: 0.125,
+      flex: 0.1,
       valueGetter: (params) => params.row.Staff?.username,
     },
     {
@@ -163,7 +163,7 @@ export default function RequestTable() {
         <DialogContent>
           <Box display='flex' flexDirection='column' gap={3}>
             <Grid container rowGap={1}>
-              <Grid xs={12}>
+              <Grid xs={12} item>
                 <Typography variant='h6'>Thông tin yêu cầu</Typography>
               </Grid>
               <Grid item xs={3}>
@@ -210,12 +210,6 @@ export default function RequestTable() {
                   {new Date(currentRequest?.createdAt!).toLocaleString('vi-VN')}
                 </Typography>
               </Grid>
-            </Grid>
-
-            <Grid container rowGap={1}>
-              <Grid xs={12}>
-                <Typography variant='h6'>Thông tin xử lý</Typography>
-              </Grid>
               <Grid item xs={3}>
                 <Typography variant='body1'>Trạng thái</Typography>
               </Grid>
@@ -223,55 +217,33 @@ export default function RequestTable() {
                 <Typography
                   variant='body1'
                   className={
-                    RequestStatusMap[currentRequest!.status! as keyof typeof RequestStatusMap]
+                    RequestStatusMap[currentRequest?.status! as keyof typeof RequestStatusMap]
                   }
                 >
                   {currentRequest?.status}
                 </Typography>
               </Grid>
-              <Grid item xs={3}>
-                <Typography variant='body1'>Phản hồi</Typography>
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant='body1'>{currentRequest?.response}</Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <Typography variant='body1'>Người xử lý</Typography>
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant='body1'>{currentRequest?.Staff?.username}</Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <Typography variant='body1'> Số điện thoại </Typography>
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant='body1'>{currentRequest?.User.UserInfo.phone}</Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <Typography variant='body1'>Chung cư</Typography>
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant='body1'>
-                  {currentRequest?.User.UserInfo.Apartment.Building.name}
-                </Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <Typography variant='body1'>Căn hộ</Typography>
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant='body1'>
-                  {currentRequest?.User.UserInfo.Apartment.name}
-                </Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <Typography variant='body1'>Thời gian tạo</Typography>
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant='body1'>
-                  {new Date(currentRequest?.createdAt!).toLocaleString('vi-VN')}
-                </Typography>
-              </Grid>
             </Grid>
+            {currentRequest?.StaffId && (
+              <Grid container rowGap={1}>
+                <Grid xs={12} item>
+                  <Typography variant='h6'>Thông tin xử lý</Typography>
+                </Grid>
+
+                <Grid item xs={3}>
+                  <Typography variant='body1'>Phản hồi</Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant='body1'>{currentRequest?.response}</Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography variant='body1'>Người xử lý</Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography variant='body1'>{currentRequest?.Staff?.username}</Typography>
+                </Grid>
+              </Grid>
+            )}
           </Box>
         </DialogContent>
       </Dialog>
