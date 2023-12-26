@@ -1,6 +1,6 @@
 import { viVN } from '@mui/x-data-grid';
 
-const url = 'http://localhost:3000';
+const url = 'http://localhost:2607';
 
 let dataGridLocaleText = viVN.components.MuiDataGrid.defaultProps.localeText;
 
