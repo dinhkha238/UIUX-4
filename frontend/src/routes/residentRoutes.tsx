@@ -4,12 +4,12 @@ import LayoutProvider from '../layouts/LayoutProvider';
 
 import ResidentDashboard from '../pages/resident/ResidentDashboard';
 import ResidentNavbar from '../layouts/navbar/ResidentNavbar';
-import UserManagement from '../pages/resident/UserManagement';
+import ResidentMember from '../pages/resident/member/ResidentMember';
 import ResidentDeclaration from '../pages/resident/ResidentDeclaration';
-import ResidentComplaints from '../pages/resident/ResidentComplaints';
-import ResidentAddComplaint from '../pages/resident/ResidentAddComplaint';
-
-// Todo add profile
+import ResidentComplaints from '../pages/resident/request/ResidentComplaints';
+import ResidentInvoice from '../pages/resident/invoice/ResidentInvoice';
+import ResidentRequest from '../pages/resident/request/ResidentRequest';
+import ResidentAddRequest from '../pages/resident/request/ResidentAddRequest';
 
 const residentRoutes = [
   {
@@ -25,10 +25,10 @@ const residentRoutes = [
     ),
   },
   {
-    path: '/resident/member-management',
+    path: '/resident/member',
     element: (
       <LayoutProvider navbar={<ResidentNavbar />}>
-        <UserManagement />
+        <ResidentMember />
       </LayoutProvider>
     ),
   },
@@ -41,18 +41,26 @@ const residentRoutes = [
     ),
   },
   {
-    path: '/resident/complaint',
+    path: '/resident/request',
     element: (
       <LayoutProvider navbar={<ResidentNavbar />}>
-        <ResidentComplaints />
+        <ResidentRequest />
       </LayoutProvider>
     ),
   },
   {
-    path: '/resident/add-complaint',
+    path: '/resident/invoice',
     element: (
       <LayoutProvider navbar={<ResidentNavbar />}>
-        <ResidentAddComplaint />
+        <ResidentInvoice />
+      </LayoutProvider>
+    ),
+  },
+  {
+    path: '/resident/request/add',
+    element: (
+      <LayoutProvider navbar={<ResidentNavbar />}>
+        <ResidentAddRequest />
       </LayoutProvider>
     ),
   },

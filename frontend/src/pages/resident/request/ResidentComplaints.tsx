@@ -1,7 +1,8 @@
+// @ts-nocheck
+
 import SearchIcon from '@mui/icons-material/Search';
 import {
   Box,
-  Button,
   FormControl,
   InputAdornment,
   InputLabel,
@@ -16,6 +17,12 @@ import { DataGrid } from '@mui/x-data-grid';
 import MoreVertSharpIcon from '@mui/icons-material/MoreVertSharp';
 import { useState } from 'react';
 import dayjs from 'dayjs';
+
+enum Statuses {
+  IN_PROGRESS = 'IN_PROGRESS',
+  DONE = 'DONE',
+  REJECTED = 'REJECTED',
+}
 
 const STATUS_COLORS = {
   IN_PROGRESS: '#F9A825',
@@ -39,7 +46,7 @@ const rows = [
   },
 ];
 
-const getStatusInfo = (status) => {
+const getStatusInfo = (status: Statuses) => {
   let color = STATUS_COLORS.REJECTED;
   let text = 'Bị từ chối';
 
@@ -62,7 +69,7 @@ const getStatusInfo = (status) => {
   };
 };
 
-const covertDate = (value) => dayjs(value).format('DD/MM/YYYY');
+const covertDate = (value: any) => dayjs(value).format('DD/MM/YYYY');
 
 const ResidentComplaints = () => {
   const [dataModal, setDataModal] = useState(null);
@@ -80,9 +87,7 @@ const ResidentComplaints = () => {
       headerName: 'Ngày',
       flex: 1,
       renderCell: (params) => {
-        return (
-          <Typography variant='span'>{covertDate(params.value)}</Typography>
-        );
+        return <Typography variant='span'>{covertDate(params.value)}</Typography>;
       },
     },
     {
@@ -134,17 +139,12 @@ const ResidentComplaints = () => {
           fontWeight={600}
           borderBottom={1}
           p={3}
-          borderColor='rgba(0, 0, 0, 0.12)'>
+          borderColor='rgba(0, 0, 0, 0.12)'
+        >
           User Management
         </Typography>
 
-        <Box
-          px={3}
-          mt={4}
-          display='flex'
-          alignItems='center'
-          justifyContent='flex-end'
-          gap={2}>
+        <Box px={3} mt={4} display='flex' alignItems='center' justifyContent='flex-end' gap={2}>
           <FormControl>
             <InputLabel id='filter-label'>Bộ lọc</InputLabel>
             <Select
@@ -153,7 +153,8 @@ const ResidentComplaints = () => {
               id='filter'
               value={filter}
               label='Bộ lọc'
-              onChange={handleSetFilter}>
+              onChange={handleSetFilter}
+            >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
@@ -196,7 +197,8 @@ const ResidentComplaints = () => {
         open={!!dataModal}
         onClose={() => setDataModal(null)}
         aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'>
+        aria-describedby='modal-modal-description'
+      >
         <Box
           sx={{
             position: 'absolute',
@@ -207,16 +209,14 @@ const ResidentComplaints = () => {
             bgcolor: 'background.paper',
             borderRadius: 2,
             p: 4,
-          }}>
+          }}
+        >
           <Typography fontWeight={600} variant='h3' fontSize={20}>
             Khiếu nại
           </Typography>
 
           <Stack spacing={3} mt={4}>
-            <Stack
-              direction='row'
-              spacing={2}
-              sx={{ '& > :not(style)': { flex: 1 } }}>
+            <Stack direction='row' spacing={2} sx={{ '& > :not(style)': { flex: 1 } }}>
               <TextField
                 label='Bản chất khiếu nại'
                 defaultValue={dataModal?.complaintNature}
@@ -232,10 +232,7 @@ const ResidentComplaints = () => {
                 }}
               />
             </Stack>
-            <Stack
-              direction='row'
-              spacing={2}
-              sx={{ '& > :not(style)': { flex: 1 } }}>
+            <Stack direction='row' spacing={2} sx={{ '& > :not(style)': { flex: 1 } }}>
               <TextField
                 label='Trạng thái'
                 defaultValue={getStatusInfo(dataModal?.status).text}

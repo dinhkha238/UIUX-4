@@ -1,4 +1,4 @@
-import { DataGrid, viVN, GridToolbar, GridActionsCellItem, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridActionsCellItem, GridColDef } from '@mui/x-data-grid';
 
 import { useState, useEffect } from 'react';
 
@@ -10,7 +10,8 @@ import {
 
 import { Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { UserInfo } from '../../../api/user-info/types';
+
+import { dataGridLocaleText } from '../../../config/constants';
 
 export default function ResidentTable() {
   const navigate = useNavigate();
@@ -38,6 +39,9 @@ export default function ResidentTable() {
       flex: 0.1,
       type: 'date',
       valueGetter: (params) => new Date(params.row.birthday),
+      valueFormatter(params) {
+        return params.value?.toLocaleDateString('vi-VN');
+      },
     },
     { field: 'city', headerName: 'Thành phố', flex: 0.1 },
     { field: 'district', headerName: 'Quận', flex: 0.1 },
@@ -54,7 +58,7 @@ export default function ResidentTable() {
           icon={<Edit />}
           label='Edit'
           onClick={() => {
-            navigate(`/`, { state: params.row });
+            navigate(`/staff/resident/update`, { state: params.row });
           }}
         />,
       ],
@@ -90,7 +94,7 @@ export default function ResidentTable() {
       pagination
       checkboxSelection
       disableRowSelectionOnClick
-      localeText={viVN.components.MuiDataGrid.defaultProps.localeText}
+      localeText={dataGridLocaleText}
       slots={{ toolbar: GridToolbar }}
     />
   );

@@ -9,6 +9,11 @@ import StaffApartmentAdd from '../pages/staff/apartment/StaffApartmentAdd';
 import StaffApartmentUpdate from '../pages/staff/apartment/StaffApartmentUpdate';
 import StaffResident from '../pages/staff/resident/StaffResident';
 import StaffResidentAdd from '../pages/staff/resident/StaffResidentAdd';
+import StaffResidentUpdate from '../pages/staff/resident/StaffResidentUpdate';
+
+import StaffInvoice from '../pages/staff/invoice/StaffInvoice';
+import StaffRequest from '../pages/staff/request/StaffRequest';
+import StaffInvoiceAdd from '../pages/staff/invoice/StaffInvoiceAdd';
 
 const staffRoutes = [
   {
@@ -68,6 +73,38 @@ const staffRoutes = [
     element: (
       <LayoutProvider navbar={<StaffNavbar />}>
         <StaffResidentAdd />
+      </LayoutProvider>
+    ),
+  },
+  {
+    path: '/staff/resident/update',
+    element: (
+      <LayoutProvider navbar={<StaffNavbar />}>
+        <StaffResidentUpdate />
+      </LayoutProvider>
+    ),
+  },
+  {
+    path: '/staff/invoice',
+    element: (
+      <LayoutProvider navbar={<StaffNavbar />}>
+        <StaffInvoice />
+      </LayoutProvider>
+    ),
+  },
+  {
+    path: '/staff/invoice/add',
+    element: (
+      <LayoutProvider navbar={<StaffNavbar />}>
+        <StaffInvoiceAdd />
+      </LayoutProvider>
+    ),
+  },
+  {
+    path: '/staff/request',
+    element: (
+      <LayoutProvider navbar={<StaffNavbar />}>
+        <StaffRequest />
       </LayoutProvider>
     ),
   },

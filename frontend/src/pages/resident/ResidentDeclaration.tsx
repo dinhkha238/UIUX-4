@@ -20,7 +20,7 @@ const RegistrationForm = () => {
     startDate: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -32,7 +32,8 @@ const RegistrationForm = () => {
       <Box
         sx={{
           '& > :not(style)': { mt: 2 },
-        }}>
+        }}
+      >
         <TextField
           name='currentAddress'
           value={formData.currentAddress}
@@ -49,11 +50,7 @@ const RegistrationForm = () => {
           label='Lý do vắng mặt tạm thời *'
           variant='outlined'
         />
-        <DatePicker
-          sx={{ width: '100%' }}
-          label='Ngày bắt đầu'
-          name='startDate'
-        />
+        <DatePicker sx={{ width: '100%' }} label='Ngày bắt đầu' name='startDate' />
       </Box>
 
       <Stack mt={4}>
@@ -73,7 +70,7 @@ const AbsenceForm = () => {
     endDate: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -85,7 +82,8 @@ const AbsenceForm = () => {
       <Box
         sx={{
           '& > :not(style)': { mt: 2 },
-        }}>
+        }}
+      >
         <TextField
           name='currentAddress'
           value={formData.currentAddress}
@@ -133,11 +131,9 @@ const FORM_TYPES = {
   ABSENCE: 'ABSENCE',
 };
 const ResidentDeclaration = () => {
-  const [selectedFormType, setSelectedFormType] = useState(
-    FORM_TYPES.REGISTRATION
-  );
+  const [selectedFormType, setSelectedFormType] = useState(FORM_TYPES.REGISTRATION);
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setSelectedFormType(event.target.value);
   };
 
@@ -149,7 +145,8 @@ const ResidentDeclaration = () => {
         fontWeight={600}
         borderBottom={1}
         p={3}
-        borderColor='rgba(0, 0, 0, 0.12)'>
+        borderColor='rgba(0, 0, 0, 0.12)'
+      >
         Tờ khai thường trú
       </Typography>
 
@@ -164,16 +161,16 @@ const ResidentDeclaration = () => {
             flexDirection: 'row',
             alignItems: 'center',
             gap: 4,
-          }}>
-          <FormLabel id='declaration-radio-buttons-group-label'>
-            Chọn Mẫu tờ khai *:
-          </FormLabel>
+          }}
+        >
+          <FormLabel id='declaration-radio-buttons-group-label'>Chọn Mẫu tờ khai *:</FormLabel>
           <RadioGroup
             row
             aria-labelledby='declaration-radio-buttons-group-label'
             value={selectedFormType}
             onChange={handleChange}
-            name='radio-buttons-group'>
+            name='radio-buttons-group'
+          >
             <FormControlLabel
               value={FORM_TYPES.REGISTRATION}
               control={<Radio />}
@@ -187,11 +184,7 @@ const ResidentDeclaration = () => {
           </RadioGroup>
         </FormControl>
 
-        {selectedFormType === FORM_TYPES.REGISTRATION ? (
-          <RegistrationForm />
-        ) : (
-          <AbsenceForm />
-        )}
+        {selectedFormType === FORM_TYPES.REGISTRATION ? <RegistrationForm /> : <AbsenceForm />}
       </Box>
     </Box>
   );

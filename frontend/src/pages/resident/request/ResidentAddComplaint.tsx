@@ -19,11 +19,11 @@ const ResidentAddComplaint = () => {
     desc: '',
   });
 
-  const handleChangeNature = (event) => {
+  const handleChangeNature = (event: any) => {
     setNature(event.target.value);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -38,7 +38,8 @@ const ResidentAddComplaint = () => {
         gap={2}
         p={3}
         borderBottom={1}
-        borderColor='rgba(0, 0, 0, 0.12)'>
+        borderColor='rgba(0, 0, 0, 0.12)'
+      >
         <ArrowBackIosNewIcon />
         <Typography variant='h1' fontSize={40} fontWeight={600}>
           Thêm khiếu nại
@@ -59,7 +60,8 @@ const ResidentAddComplaint = () => {
               id='select-nature'
               value={nature}
               label='Nature'
-              onChange={handleChangeNature}>
+              onChange={handleChangeNature}
+            >
               <MenuItem value={10}>10</MenuItem>
               <MenuItem value={20}>20</MenuItem>
               <MenuItem value={30}>30</MenuItem>

@@ -2,12 +2,13 @@ import Navbar from './Navbar';
 
 const items = [
   { name: 'Trang chủ', route: 'dashboard' },
-  { name: 'Hồ sơ', route: 'profile' },
-  { name: 'Đóng phí', route: 'charge' },
+  { name: 'Thành viên', route: 'member' },
+  { name: 'Đóng phí', route: 'invoice' },
   { name: 'Thông báo', route: 'notification' },
-  { name: 'Khiếu nại', route: 'complaint' },
+  { name: 'Yêu cầu', route: 'request' },
   { name: 'Tạm trú', route: 'temporary-residence' },
   { name: 'Tạm vắng', route: 'temporary-absence' },
+  { name: 'Hồ sơ', route: 'profile' },
 ];
 
 export default function ResidentNavbar() {

@@ -4,9 +4,9 @@ const items = [
   { name: 'Trang chủ', route: 'dashboard' },
   { name: 'Căn hộ', route: 'apartment' },
   { name: 'Quản lý cư dân', route: 'resident' },
-  { name: 'Khiếu nại', route: 'complaint' },
+  { name: 'Phí', route: 'invoice' },
+  { name: 'Yêu cầu', route: 'request' },
   { name: 'Thông báo', route: 'notification' },
-  { name: 'Phí', route: 'charge' },
   { name: 'Hồ sơ', route: 'profile' },
 ];
 

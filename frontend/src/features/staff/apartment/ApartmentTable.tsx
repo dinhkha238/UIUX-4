@@ -1,12 +1,13 @@
 import {
   DataGrid,
-  viVN,
   GridToolbar,
   GridActionsCellItem,
   GridRowParams,
   GridColDef,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
+
+import { dataGridLocaleText } from '../../../config/constants';
 
 import { useState, useEffect } from 'react';
 
@@ -87,7 +88,7 @@ export default function ApartmentTable() {
       pagination
       checkboxSelection
       disableRowSelectionOnClick
-      localeText={viVN.components.MuiDataGrid.defaultProps.localeText}
+      localeText={dataGridLocaleText}
       slots={{ toolbar: GridToolbar }}
     />
   );

@@ -25,9 +25,15 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import genders from '../../../assets/genders';
 import { GetBuildingsResponse, getBuildings } from '../../../api/building/getBuildings';
-import { CreateUserInfoRequest, createUserInfo } from '../../../api/user-info/createUserInfo';
 
-interface CreateUserInfoFormProps {
+import { GetUserInfoResponseElement } from '../../../api/user-info/getUserInfos';
+
+import { UpdateUserInfoRequest, updateUserInfo } from '../../../api/user-info/updateUserInfo';
+
+import { useLocation, useNavigate } from 'react-router-dom';
+
+interface UpdateUserInfoFormProps {
+  id: number;
   firstName: string;
   lastName: string;
   gender: string;
@@ -39,10 +45,34 @@ interface CreateUserInfoFormProps {
   subdistrict: string;
   ApartmentId?: number;
   BuildingId?: number;
-  account: boolean;
 }
 
-function toCreateUserInfoRequest(values: CreateUserInfoFormProps): CreateUserInfoRequest {
+function toUpdateUserInfoFormProps(userInfo: GetUserInfoResponseElement): UpdateUserInfoFormProps {
+  return {
+    id: userInfo.id,
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    gender: userInfo.gender,
+    birthday: dayjs(userInfo.birthday),
+    email: userInfo.email,
+    phone: userInfo.phone,
+    city: userInfo.city,
+    district: userInfo.district,
+    subdistrict: userInfo.subdistrict,
+    ApartmentId: userInfo.Apartment.id,
+    BuildingId: userInfo.Apartment.Building.id,
+  };
+}
+
+function toUpdateUserInfoRequest(values: UpdateUserInfoFormProps): UpdateUserInfoRequest {
+  return {
+    ...values,
+    birthday: values.birthday.toISOString(),
+    ApartmentId: values.ApartmentId!,
+  };
+}
+
+function toCreateUserInfoRequest(values: UpdateUserInfoFormProps): UpdateUserInfoRequest {
   let temp = values;
   delete temp['BuildingId'];
 
@@ -53,24 +83,16 @@ function toCreateUserInfoRequest(values: CreateUserInfoFormProps): CreateUserInf
   };
 }
 
-const ResidentAddForm = () => {
+const ResidentUpdateForm = () => {
   const [buildings, setBuildings] = useState<GetBuildingsResponse>([]);
 
-  const formik = useFormik<CreateUserInfoFormProps>({
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      birthday: dayjs(),
-      gender: genders[0],
-      email: '',
-      phone: '',
-      city: '',
-      district: '',
-      subdistrict: '',
-      account: false,
-      ApartmentId: undefined,
-      BuildingId: undefined,
-    },
+  const location = useLocation();
+
+  const initialValues = toUpdateUserInfoFormProps(location.state as GetUserInfoResponseElement);
+
+  const formik = useFormik<UpdateUserInfoFormProps>({
+    enableReinitialize: false,
+    initialValues: initialValues,
     validationSchema: yup.object({
       firstName: yup.string().required('Họ không được để trống'),
       lastName: yup.string().required('Tên không được để trống'),
@@ -95,10 +117,11 @@ const ResidentAddForm = () => {
 
     onSubmit: async (values) => {
       try {
-        const result = await createUserInfo(toCreateUserInfoRequest(values));
+        const result = await updateUserInfo(toUpdateUserInfoRequest(values));
 
         setSnackbarOpen(true);
-        formik.resetForm();
+
+        console.log(formik.values);
       } catch (error) {
         console.log(error);
       }
@@ -113,8 +136,6 @@ const ResidentAddForm = () => {
 
     fetchBuildings();
   }, []);
-
-  console.log(formik.values);
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
@@ -302,48 +323,9 @@ const ResidentAddForm = () => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={formik.values.account}
-                onChange={(event) => {
-                  formik.setFieldValue('account', !formik.values.account);
-                }}
-              />
-            }
-            label='Tạo tài khoản'
-            labelPlacement='start'
-          />
-        </Grid>
-        {/*<Grid item xs={6}>
-            <FormControl fullWidth>
-              <InputLabel id='building-select-label'>Căn hộ</InputLabel>
-              <Select
-                labelId='building-select-label'
-                id='building-select'
-                label='Căn hộ'
-                value={formik.values.apartment}
-                onChange={formik.handleChange('apartment')}
-                error={formik.touched.apartment && Boolean(formik.errors.apartment)}
-              >
-                {buildings.length !== 0 &&
-                  buildings
-                    .find((building) => building.id === formik.values.building)
-                    .Apartments.map((apartment) => {
-                      return (
-                        <MenuItem key={apartment.id} value={apartment.id}>
-                          {apartment.name}
-                        </MenuItem>
-                      );
-                    })}
-              </Select>
-            </FormControl>
-                  </Grid>*/}
-
         <Grid item xs={0}>
           <Button variant='contained' color='primary' type='submit'>
-            Thêm cư dân
+            Cập nhật cư dân
           </Button>
         </Grid>
       </Grid>
@@ -360,11 +342,11 @@ const ResidentAddForm = () => {
         }}
       >
         <Alert severity='success' sx={{ width: '100%' }}>
-          Thêm cư dân thành công
+          Cập nhật cư dân thành công
         </Alert>
       </Snackbar>
     </form>
   );
 };
 
-export default ResidentAddForm;
+export default ResidentUpdateForm;

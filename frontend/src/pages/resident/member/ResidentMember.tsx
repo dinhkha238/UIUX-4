@@ -60,10 +60,10 @@ const rows = [
   },
 ];
 
-const UserManagement = () => {
+const ResidentMember = () => {
   const [showing, setShowing] = useState('');
 
-  const handleSetShowing = (event) => {
+  const handleSetShowing = (event: any) => {
     setShowing(event.target.value);
   };
 
@@ -75,16 +75,12 @@ const UserManagement = () => {
         fontWeight={600}
         borderBottom={1}
         p={3}
-        borderColor='rgba(0, 0, 0, 0.12)'>
+        borderColor='rgba(0, 0, 0, 0.12)'
+      >
         User Management
       </Typography>
 
-      <Box
-        px={3}
-        mt={4}
-        display='flex'
-        alignItems='center'
-        justifyContent='space-between'>
+      <Box px={3} mt={4} display='flex' alignItems='center' justifyContent='space-between'>
         <FormControl>
           <InputLabel id='resident-user-management-label'>Hiển thị</InputLabel>
           <Select
@@ -93,7 +89,8 @@ const UserManagement = () => {
             id='resident-user-management'
             value={showing}
             label='Hiển thị'
-            onChange={handleSetShowing}>
+            onChange={handleSetShowing}
+          >
             <MenuItem value={10}>10</MenuItem>
             <MenuItem value={20}>20</MenuItem>
             <MenuItem value={30}>30</MenuItem>
@@ -134,4 +131,4 @@ const UserManagement = () => {
   );
 };
 
-export default UserManagement;
+export default ResidentMember;
