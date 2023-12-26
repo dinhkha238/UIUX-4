@@ -18,6 +18,7 @@ const Apartment = sequelize.define("Apartment", {
 });
 
 Apartment.hasMany(UserInfo);
+UserInfo.belongsTo(Apartment);
 Building.hasMany(Apartment);
 Apartment.belongsTo(Building);
 

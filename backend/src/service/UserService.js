@@ -49,8 +49,6 @@ export const UserService = {
       include: [Role],
     });
 
-    console.log(userInstance);
-
     if (!userInstance) {
       return {
         success: false,

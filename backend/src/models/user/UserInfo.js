@@ -30,10 +30,6 @@ const UserInfo = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    country: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     city: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -51,5 +47,6 @@ const UserInfo = sequelize.define(
 );
 
 User.hasOne(UserInfo);
+UserInfo.belongsTo(User);
 
 export default UserInfo;
