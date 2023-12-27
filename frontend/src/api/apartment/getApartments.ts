@@ -1,15 +1,12 @@
 import axios from 'axios';
 import { url } from '../../config/constants';
 
-import { Apartment } from './types';
+import { ApartmentFull } from './types';
 
 import { Building } from '../building/types';
 import { UserInfo } from '../user-info/types';
 
-interface GetAparmentsResponseElement extends Apartment {
-  Building: Building;
-  UserInfos: UserInfo[];
-}
+interface GetAparmentsResponseElement extends ApartmentFull {}
 
 type GetAparmentsResponse = GetAparmentsResponseElement[];
 

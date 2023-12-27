@@ -8,7 +8,7 @@ export default function StaffResident() {
   return (
     <Box display='flex' p={2} flexDirection='column' gap={2} height='100vh'>
       <Typography variant='h3' color='text'>
-        Quản lý cư dân
+        Cư dân
       </Typography>
 
       <Divider />

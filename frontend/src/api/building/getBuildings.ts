@@ -3,9 +3,9 @@ import { url } from '../../config/constants';
 
 import { Building } from './types';
 
-import { Apartment } from '../apartment/types';
+import { ApartmentFull } from '../apartment/types';
 interface GetBuildingsResponseElement extends Building {
-  Apartments: Apartment[];
+  Apartments: ApartmentFull[];
 }
 
 interface GetBuildingsResponse extends Array<GetBuildingsResponseElement> {}

@@ -8,7 +8,10 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  TextField,
 } from '@mui/material';
+
+import InvoiceAddForm from '../../../features/staff/invoice/InvoiceAddForm';
 
 export default function StaffInvoiceAdd() {
   return (
@@ -19,25 +22,8 @@ export default function StaffInvoiceAdd() {
 
       <Divider />
 
-      <Typography variant='h5' color='text'>
-        Thông tin khoản thu
-      </Typography>
-
-      <Box display='flex' flexDirection='column'>
-        <FormControl>
-          <FormLabel id='demo-radio-buttons-group-label'>Khoản thu theo</FormLabel>
-          <RadioGroup
-            row
-            aria-labelledby='demo-radio-buttons-group-label'
-            defaultValue='female'
-            name='radio-buttons-group'
-          >
-            <FormControlLabel value='oneTime' control={<Radio />} label='Một lần' />
-            <FormControlLabel value='monthly' control={<Radio />} label='Tháng' />
-            <FormControlLabel value='quarterly' control={<Radio />} label='Quý' />
-            <FormControlLabel value='yearly' control={<Radio />} label='Năm' />
-          </RadioGroup>
-        </FormControl>
+      <Box flex={1}>
+        <InvoiceAddForm />
       </Box>
     </Box>
   );
