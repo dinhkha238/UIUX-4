@@ -1,5 +1,6 @@
 import Apartment from "../models/building/Apartment.js";
 import Building from "../models/building/Building.js";
+import UserInfo from "../models/user/UserInfo.js";
 
 const BuildingService = {
   async getAllApartments() {
@@ -18,7 +19,12 @@ const BuildingService = {
 
   async getAllBuilding() {
     const buildings = await Building.findAll({
-      include: [Apartment],
+      include: [
+        {
+          model: Apartment,
+          include: [UserInfo],
+        },
+      ],
     });
 
     return { data: buildings };

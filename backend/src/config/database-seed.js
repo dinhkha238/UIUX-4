@@ -8,11 +8,19 @@ import seedRole from "./seed/seedRole.js";
 import seedUser from "./seed/seedUser.js";
 import Apartment from "../models/building/Apartment.js";
 import Building from "../models/building/Building.js";
+
+import Invoice from "../models/invoice/Invoice.js";
+import InvoiceApartment from "../models/invoice/InvoiceApartment.js";
+
 import seedBuilding from "./seed/seedBuilding.js";
 import seedApartment from "./seed/seedApartment.js";
 import seedRequest from "./seed/seedRequest.js";
 
 import seedUserInfo from "./seed/seedUserInfo.js";
+
+import seedInvoice from "./seed/seedInvoice.js";
+
+import seedInvoiceApartment from "./seed/seedInvoiceApartment.js";
 
 export async function synchronizeDatabase() {
   await Role.sync({ force: true });
@@ -26,6 +34,9 @@ export async function synchronizeDatabase() {
 
   await Request.sync({ force: true });
 
+  await Invoice.sync({ force: true });
+  await InvoiceApartment.sync({ force: true });
+
   await seedDatabase();
   console.log("Database synchronized successfully.");
 }
@@ -37,4 +48,6 @@ export async function seedDatabase() {
   await seedApartment();
   await seedUserInfo();
   await seedRequest();
+  await seedInvoice();
+  await seedInvoiceApartment();
 }

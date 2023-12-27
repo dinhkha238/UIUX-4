@@ -29,6 +29,7 @@ const UserInfoService = {
       const userInfoInstance = await UserInfo.create(userInfo);
 
       if (userInfo.account) {
+        /*
         let nextId = (await User.max("id")) + 1;
 
         const names = userInfo.firstName.split(" ").map((name) => {
@@ -44,6 +45,9 @@ const UserInfoService = {
         });
 
         const username = first + nextId;
+        */
+
+        const username = userInfo.email;
 
         const password = userInfo.phone;
 

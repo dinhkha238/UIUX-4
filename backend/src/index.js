@@ -10,6 +10,9 @@ import apartmentRoutes from "./routes/apartmentRoutes.js";
 import buildingRoutes from "./routes/buildingRoutes.js";
 import requestRoutes from "./routes/requestRoutes.js";
 
+import invoiceRoutes from "./routes/invoiceRoutes.js";
+import invoiceApartmentRoutes from "./routes/invoiceApartmentRoutes.js";
+
 import { synchronizeDatabase } from "./config/database-seed.js";
 
 function setUpServer() {
@@ -26,6 +29,8 @@ function setUpServer() {
   app.use("/apartments", apartmentRoutes);
   app.use("/buildings", buildingRoutes);
   app.use("/requests", requestRoutes);
+  app.use("/invoices", invoiceRoutes);
+  app.use("/invoice-apartments", invoiceApartmentRoutes);
 
   app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);

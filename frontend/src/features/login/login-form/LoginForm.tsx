@@ -55,7 +55,7 @@ export default function LoginForm() {
 
           <Grid item xs={6}>
             <Typography variant='h4' color='primary'>
-              Vinahouse
+              Myhome
             </Typography>
           </Grid>
         </Grid>

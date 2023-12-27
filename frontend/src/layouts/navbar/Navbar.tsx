@@ -78,7 +78,7 @@ export default function Navbar({ base, items }: NavbarProps) {
       <Box display='flex' justifyContent='center' gap={1} alignItems='center'>
         <Box component='img' sx={{ height: '100%', width: '25%' }} src='/src/assets/logo.svg' />
         <Typography variant='h5' color='primary' fontWeight='600'>
-          Vinahouse
+          Myhome
         </Typography>
       </Box>
 

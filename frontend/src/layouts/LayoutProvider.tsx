@@ -9,11 +9,11 @@ interface LayoutProviderProps {
 export default function LayoutProvider({ navbar, children }: LayoutProviderProps) {
   return (
     <Box display='flex' height='100vh'>
-      <Box width='20%'>{navbar}</Box>
+      <Box width='15%'>{navbar}</Box>
 
       <Divider orientation='vertical' />
 
-      <Box width='80%'>{children}</Box>
+      <Box width='85%'>{children}</Box>
     </Box>
   );
 }

@@ -1,0 +1,55 @@
+import Invoice from "../../models/invoice/Invoice.js";
+
+export default async function seedInvoice() {
+  const invoiceTypes = [
+    { name: "Phí quản lý tòa nhà" },
+    { name: "Phí bảo vệ, an ninh" },
+    { name: "Phí vệ sinh" },
+    { name: "Phí nước" },
+    { name: "Phí điện" },
+    { name: "Phí internet và truyền hình cáp" },
+    { name: "Phí sử dụng gara ô tô" },
+    { name: "Phí sử dụng tiện ích chung" },
+    { name: "Phí sửa chữa và bảo dưỡng" },
+    { name: "Phí xử lý rác" },
+    { name: "Phí duy trì cảnh quan" },
+    { name: "Phí quảng cáo và thông báo" },
+    { name: "Phí quản lý hồ bơi" },
+    { name: "Phí bảo trì thang máy" },
+    { name: "Phí đèn chiếu sáng chung" },
+    { name: "Phí sử dụng phòng sinh hoạt chung" },
+    { name: "Phí sử dụng khu vực công cộng" },
+    { name: "Phí sử dụng phòng họp cộng đồng" },
+    { name: "Phí sử dụng khu vực BBQ chung" },
+    { name: "Phí sử dụng khu vực nuôi thú cưng chung" },
+    { name: "Phí sử dụng máy giặt và máy sấy chung" },
+    { name: "Phí đăng ký và cấp thẻ cư dân" },
+    { name: "Phí sử dụng hệ thống camera an ninh" },
+    { name: "Phí xử lý vi phạm quy định nội quy" },
+    { name: "Phí sử dụng thẻ từ và chìa khóa" },
+    { name: "Phí sử dụng dịch vụ chăm sóc sức khỏe" },
+    { name: "Phí sử dụng khu vực đọc sách và thư viện" },
+    { name: "Phí sử dụng khu vực trung tâm thương mại" },
+    { name: "Phí sử dụng phòng tập thể dục" },
+    { name: "Phí sử dụng khu vực massage hoặc spa chung" },
+    { name: "Phí sử dụng sân thể thao chung" },
+    { name: "Phí thay thế thẻ mất hoặc hỏng" },
+    { name: "Phí sử dụng khu vực làm việc chung" },
+    { name: "Phí sử dụng máy in và máy sao chép chung" },
+    { name: "Phí sử dụng khu vực nấu ăn chung" },
+    { name: "Phí sử dụng khu vực tiếp khách" },
+    { name: "Phí sử dụng dịch vụ dọn phòng chung" },
+    { name: "Phí sử dụng khu vực công viên chung" },
+    { name: "Phí sử dụng khu vực trò chơi và giải trí" },
+    { name: "Phí sử dụng khu vực ngồi chơi xã hội" },
+    { name: "Phí sử dụng khu vực quản lý môi trường" },
+    { name: "Phí sử dụng khu vực yoga hoặc tập thể dục chung" },
+    { name: "Phí sử dụng khu vực chăm sóc trẻ" },
+    { name: "Phí sử dụng khu vực học tập chung" },
+    { name: "Phí sử dụng khu vực nhà hàng hoặc quán cà phê chung" },
+  ];
+
+  for (let invoiceType of invoiceTypes) {
+    await Invoice.create(invoiceType);
+  }
+}
