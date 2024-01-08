@@ -17,8 +17,8 @@ export default async function seedInvoiceApartment() {
       InvoiceId: 1,
       description: "Tiền quản lý tháng 2",
       amount: 1000000,
-      startDate: "2021-01-01",
-      endDate: "2021-01-31",
+      startDate: "2021-02-01",
+      endDate: "2021-02-28",
       status: "unpaid",
     },
     {
@@ -36,8 +36,8 @@ export default async function seedInvoiceApartment() {
       InvoiceId: 4,
       description: "Tiền vệ sinh tháng 2",
       amount: 2000000,
-      startDate: "2021-01-01",
-      endDate: "2021-01-31",
+      startDate: "2021-02-01",
+      endDate: "2021-02-28",
       status: "unpaid",
     },
   ];

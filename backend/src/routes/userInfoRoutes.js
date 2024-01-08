@@ -13,6 +13,18 @@ router.get("/", async (req, res) => {
     res.status(500).send(error);
   }
 });
+router.get('/statistic', async (req, res) => {
+  try {
+    const { dateStart, dateEnd } = req.query;
+    const result = await UserInfoService.getUsersByDateStartToEnd(
+      dateStart,
+      dateEnd,
+    );
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
 
 router.post("/", async (req, res) => {
   try {

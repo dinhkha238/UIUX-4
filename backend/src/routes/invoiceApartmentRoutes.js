@@ -23,5 +23,31 @@ router.post("/", async (req, res) => {
     res.status(500).send(error);
   }
 });
+router.get("/statistic", async (req, res) => {
+  try {
+    const { dateStart, dateEnd, type } = req.query;
+    const result = await InvoiceApartmentService.getInvoiceApartmentsByDateStartToEnd(
+      dateStart,
+      dateEnd,
+      type
+    );
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.query;
+    const result = await InvoiceApartmentService.getInvoiceApartmentsByID(
+      id
+    );
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 export default router;

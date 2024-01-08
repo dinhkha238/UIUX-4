@@ -1,7 +1,7 @@
 import UserInfo from "../models/user/UserInfo.js";
 
 import User from "../models/user/User.js";
-
+import { Op, where, fn, col } from "sequelize";
 import removeAccents from "remove-accents";
 
 import UserRole from "../models/user/UserRole.js";
@@ -22,6 +22,23 @@ const UserInfoService = {
 
   async createUserInfo(userInfo) {
     return await UserInfo.create(userInfo);
+  },
+
+  async getUsersByDateStartToEnd(dateStart, dateEnd) {
+    const result = await UserInfo.findAll({
+      where: {
+        [Op.and]: [
+          where(fn('DATE', col('joinedDate')), '=', dateEnd),
+        ],
+      },
+      include: [
+        {
+          model: Apartment,
+          include: [Building],
+        },
+      ],
+    });
+    return result;
   },
 
   async createUserInfoNew(userInfo) {
